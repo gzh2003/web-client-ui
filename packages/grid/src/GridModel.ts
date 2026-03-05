@@ -111,6 +111,18 @@ abstract class GridModel<
   }
 
   /**
+   * Get the explicitly set format color for a cell
+   * Unlike colorForCell, this only returns a color that was explicitly
+   * set via formatting not type-based theme colors.
+   * @param column Column to get the format color for
+   * @param row Row to get the format color for
+   * @returns Explicitly set format color, or null if none was set
+   */
+  formatColorForCell(_column: ModelIndex, _row: ModelIndex): NullableGridColor {
+    return null;
+  }
+
+  /**
    * Get the background color for the cell
    * @param column Column to get the background color for
    * @param row Row to get the background color for
