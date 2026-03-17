@@ -67,6 +67,8 @@ type MaskedInputProps = {
     selectionStart: number,
     selectionEnd: number
   ) => string;
+  /** Normalize pasted text before validation. Defaults to returning text unchanged. */
+  normalizePastedText?: (text: string) => string;
   onFocus?: React.FocusEventHandler;
   onBlur?: React.FocusEventHandler;
 
@@ -87,6 +89,7 @@ const MaskedInput = React.forwardRef<HTMLInputElement, MaskedInputProps>(
       example,
       getNextSegmentValue = (range, delta, segmentValue) => segmentValue,
       getPreferredReplacementString = DEFAULT_GET_PREFERRED_REPLACEMENT_STRING,
+      normalizePastedText = (text: string) => text,
       onChange = () => false,
       onSelect = () => false,
       onSubmit,
@@ -196,23 +199,27 @@ const MaskedInput = React.forwardRef<HTMLInputElement, MaskedInputProps>(
      * @param checkValue The value to check validity of
      * @param cursorPosition The position of the cursor to check up to
      */
-    function isValid(
-      checkValue: string,
-      cursorPosition = checkValue.length
-    ): boolean {
-      const patternRegex = new RegExp(`^${pattern}$`);
-      if (patternRegex.test(checkValue)) {
-        return true;
-      }
-
-      for (let i = 0; i < examples.length; i += 1) {
-        const filledValue = fillValue(checkValue, examples[i], cursorPosition);
-        if (patternRegex.test(filledValue)) {
+    const isValid = useCallback(
+      (checkValue: string, cursorPosition = checkValue.length): boolean => {
+        const patternRegex = new RegExp(`^${pattern}$`);
+        if (patternRegex.test(checkValue)) {
           return true;
         }
-      }
-      return false;
-    }
+
+        for (let i = 0; i < examples.length; i += 1) {
+          const filledValue = fillValue(
+            checkValue,
+            examples[i],
+            cursorPosition
+          );
+          if (patternRegex.test(filledValue)) {
+            return true;
+          }
+        }
+        return false;
+      },
+      [pattern, examples]
+    );
 
     /**
      * Returns the next segment after the given position
@@ -378,6 +385,39 @@ const MaskedInput = React.forwardRef<HTMLInputElement, MaskedInputProps>(
         nextSegmentValue(selectionStart, 1);
       }
     }
+
+    /**
+     * Handles paste events into the input
+     * @param event The paste event
+     */
+    const handlePaste = useCallback(
+      (event: React.ClipboardEvent<HTMLInputElement>): void => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (!input.current) {
+          return;
+        }
+
+        const pastedText = event.clipboardData.getData('text/plain');
+
+        log.debug('handlePaste', pastedText);
+
+        // Normalize the pasted text
+        const normalizedText = normalizePastedText(pastedText);
+
+        // Check if the pasted value is valid
+        if (isValid(normalizedText, normalizedText.length)) {
+          onChange(normalizedText);
+          onSelect({
+            selectionStart: normalizedText.length,
+            selectionEnd: normalizedText.length,
+            selectionDirection: SELECTION_DIRECTION.NONE,
+          });
+        }
+      },
+      [input, onChange, onSelect, isValid, normalizePastedText]
+    );
 
     function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
       if (!input.current) {
@@ -547,6 +587,7 @@ const MaskedInput = React.forwardRef<HTMLInputElement, MaskedInputProps>(
         value={value}
         onChange={() => undefined}
         onKeyDown={handleKeyDown}
+        onPaste={handlePaste}
         onSelect={handleSelect}
         onSelectCapture={handleSelectCapture}
         onFocus={onFocus}

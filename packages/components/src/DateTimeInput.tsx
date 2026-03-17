@@ -1,4 +1,9 @@
-import React, { type KeyboardEvent, useCallback, useState } from 'react';
+import React, {
+  type KeyboardEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import classNames from 'classnames';
 import Log from '@deephaven/log';
 import MaskedInput, { type SelectionSegment } from './MaskedInput';
@@ -61,6 +66,47 @@ export const DateTimeInput = React.forwardRef<
   );
   const [selection, setSelection] = useState<SelectionSegment>();
 
+  /**
+   * Normalize text by:
+   * - Replacing 'T' with space to support ISO 8601 format
+   * - Removing timezone information (e.g., "EDT", "+05:00", "Z")
+   * - Adding zero-width space separators in the nanosecond part
+   * @param text The text
+   * @returns The normalized text
+   */
+  const normalizeText = useCallback((text: string): string => {
+    // Replace first 'T' separator with space for ISO 8601 format (without global flag to preserve 'T' in timezone like EDT)
+    let normalized = text.replace(/T/, ' ');
+
+    // Remove timezone information
+    // Match datetime up to optional fractional seconds, then strip everything else
+    // Pattern: YYYY-MM-DD HH:MM:SS[.SSSSSSSSS] followed by optional timezone
+    const dateTimeMatch = normalized.match(
+      /^(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}(?:\.\d+)?)/
+    );
+
+    if (dateTimeMatch) {
+      [, normalized] = dateTimeMatch;
+    }
+
+    // Add zero-width space separators to match the expected pattern
+    return addSeparators(normalized);
+  }, []);
+
+  // Sync internal state with defaultValue prop when it changes
+  // Apply normalization to handle raw unformatted values (e.g., with timezone info)
+  useEffect(() => {
+    if (defaultValue.length > 0) {
+      const normalized = normalizeText(defaultValue);
+      setValue(normalized);
+      // Notify parent with the normalized value (without separators)
+      onChange(fixIncompleteValue(removeSeparators(normalized)));
+    } else {
+      setValue('');
+      onChange('');
+    }
+  }, [defaultValue, normalizeText, onChange]);
+
   const handleChange = useCallback(
     (newValue: string): void => {
       log.debug('handleChange', newValue);
@@ -88,6 +134,7 @@ export const DateTimeInput = React.forwardRef<
         className={classNames(className)}
         example={EXAMPLES}
         getNextSegmentValue={getNextSegmentValue}
+        normalizePastedText={normalizeText}
         onChange={handleChange}
         onSelect={setSelection}
         onSubmit={onSubmit}

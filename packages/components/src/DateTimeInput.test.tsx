@@ -73,11 +73,11 @@ it('adds missing trailing zeros', async () => {
     initialSelectionEnd: 23,
   });
   expect(input.value).toEqual(`2022-02-22 00:00:00.100`);
-  expect(onChange).toBeCalledWith(`2022-02-22 00:00:00.100000000`);
+  expect(onChange).toHaveBeenCalledWith(`2022-02-22 00:00:00.100000000`);
 
   await user.keyboard('{Backspace}');
   expect(input.value).toEqual(`2022-02-22 00:00:00.${F}00`);
-  expect(onChange).toBeCalledWith(`2022-02-22 00:00:00.000000000`);
+  expect(onChange).toHaveBeenCalledWith(`2022-02-22 00:00:00.000000000`);
 
   unmount();
 });
@@ -105,7 +105,7 @@ it('fills missing time digits with zeros, strips zero-width spaces in onChange',
   expect(input.value).toEqual(
     `2022-02-22 11:${F}${F}:11.${F}${F}${F}${Z}111${Z}111`
   );
-  expect(onChange).toBeCalledWith(`2022-02-22 11:00:11.000111111`);
+  expect(onChange).toHaveBeenCalledWith(`2022-02-22 11:00:11.000111111`);
 
   unmount();
 });
@@ -126,7 +126,7 @@ it('does not fill in missing date digits', async () => {
     initialSelectionEnd: 7,
   });
   expect(input.value).toEqual(`2022-${F}${F}-22 00:00:00.000`);
-  expect(onChange).toBeCalledWith(`2022-${F}${F}-22 00:00:00.000000000`);
+  expect(onChange).toHaveBeenCalledWith(`2022-${F}${F}-22 00:00:00.000000000`);
 
   unmount();
 });
@@ -155,6 +155,60 @@ it('onSubmit works correctly', async () => {
   const input: HTMLInputElement = screen.getByRole('textbox');
   const user = userEvent.setup();
   await user.type(input, '{enter}');
-  expect(onSubmit).toBeCalledTimes(1);
+  expect(onSubmit).toHaveBeenCalledTimes(1);
   unmount();
+});
+
+describe('normalizeText', () => {
+  it.each([
+    [
+      'replaces T separator with space for ISO 8601 format',
+      '2022-02-22T12:30:45.123456789',
+      '2022-02-22 12:30:45.123456789',
+    ],
+    [
+      'removes timezone information (Z)',
+      '2022-02-22T12:30:45.123456789Z',
+      '2022-02-22 12:30:45.123456789',
+    ],
+    [
+      'removes timezone information (offset)',
+      '2022-02-22T12:30:45.123456789+05:00',
+      '2022-02-22 12:30:45.123456789',
+    ],
+    [
+      'removes timezone information (named)',
+      '2022-02-22 12:30:45.123456789 EDT',
+      '2022-02-22 12:30:45.123456789',
+    ],
+    [
+      'handles datetime without fractional seconds',
+      '2022-02-22T12:30:45',
+      '2022-02-22 12:30:45.000000000',
+    ],
+  ])('%s', async (_, pastedText, expectedValue) => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+    const { unmount } = makeDateTimeInput({ onChange });
+    const input: HTMLInputElement = screen.getByRole('textbox');
+
+    input.focus();
+    await user.paste(pastedText);
+
+    expect(onChange).toHaveBeenCalledWith(expectedValue);
+    unmount();
+  });
+
+  it('adds zero-width space separators between nano/micro/milliseconds', async () => {
+    const user = userEvent.setup();
+    const onChange = jest.fn();
+    const { unmount } = makeDateTimeInput({ onChange });
+    const input: HTMLInputElement = screen.getByRole('textbox');
+
+    input.focus();
+    await user.paste('2022-02-22 12:30:45.123456789');
+
+    expect(input.value).toBe(`2022-02-22 12:30:45.123${Z}456${Z}789`);
+    unmount();
+  });
 });

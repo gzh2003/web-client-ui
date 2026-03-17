@@ -2986,10 +2986,10 @@ class IrisGrid extends Component<IrisGridProps, IrisGridState> {
     }
     // if a row is selected
     const { model } = this.props;
-    const { name, type } = model.columns[cursorColumn];
+    const { name } = model.columns[cursorColumn];
 
-    const cellValue = model.valueForCell(cursorColumn, cursorRow);
-    const text = IrisGridUtils.convertValueToText(cellValue, type);
+    // Use raw value (same as Copy Cell Unformatted) to preserve full precision and timezone
+    const text = String(this.getValueForCell(cursorColumn, cursorRow, true));
     this.setState({
       isGotoShown: !isGotoShown,
       gotoRow: `${cursorRow + 1}`,

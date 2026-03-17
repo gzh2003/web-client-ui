@@ -425,7 +425,6 @@ class IrisGridContextMenuHandler extends GridMouseHandler {
     assertNotNull(modelRow);
     const sourceCell = model.sourceForCell(modelColumn, modelRow);
     const { column: sourceColumn, row: sourceRow } = sourceCell;
-    const value = model.valueForCell(sourceColumn, sourceRow);
     const { selectedRanges } = irisGrid.state;
 
     const column = columns[sourceColumn];
@@ -505,8 +504,13 @@ class IrisGridContextMenuHandler extends GridMouseHandler {
       shortcut: SHORTCUTS.TABLE.GOTO_ROW,
       group: IrisGridContextMenuHandler.GROUP_GOTO,
       order: 10,
-      action: () =>
-        this.irisGrid.toggleGotoRow(`${rowIndex + 1}`, `${value}`, column.name),
+      action: () => {
+        // Use raw value (same as Copy Cell Unformatted) to preserve full precision and timezone
+        const rawValue = String(
+          irisGrid.getValueForCell(columnIndex, rowIndex, true)
+        );
+        this.irisGrid.toggleGotoRow(`${rowIndex + 1}`, rawValue, column.name);
+      },
     };
     actions.push(gotoRow);
 
