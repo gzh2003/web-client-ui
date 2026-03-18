@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.0](https://github.com/deephaven/web-client-ui/compare/v1.15.1...v1.16.0) (2026-03-18)
+
+**Note:** Version bump only for package @deephaven/jsapi-components
+
 ## [1.15.0](https://github.com/deephaven/web-client-ui/compare/v1.14.0...v1.15.0) (2026-02-25)
 
 ### Features

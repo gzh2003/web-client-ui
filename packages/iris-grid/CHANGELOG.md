@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.0](https://github.com/deephaven/web-client-ui/compare/v1.15.1...v1.16.0) (2026-03-18)
+
+### Bug Fixes
+
+- DH-21722: Fix Goto Value for Timestamps ([#2633](https://github.com/deephaven/web-client-ui/issues/2633)) ([70a3085](https://github.com/deephaven/web-client-ui/commit/70a30853782007f182e2bc1715c4f6cfa0e652a7))
+
 ## [1.15.1](https://github.com/deephaven/web-client-ui/compare/v1.15.0...v1.15.1) (2026-03-05)
 
 **Note:** Version bump only for package @deephaven/iris-grid
