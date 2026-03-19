@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.1](https://github.com/deephaven/web-client-ui/compare/v1.16.0...v1.16.1) (2026-03-19)
+
+### Features
+
+- DH-21843: Additional Logging for DashboardLayout Config Change ([#2637](https://github.com/deephaven/web-client-ui/issues/2637)) ([5492e2b](https://github.com/deephaven/web-client-ui/commit/5492e2b8d44954813c62a549423cbc3c0f63fb4a))
+
 ## [1.16.0](https://github.com/deephaven/web-client-ui/compare/v1.15.1...v1.16.0) (2026-03-18)
 
 ### Features
