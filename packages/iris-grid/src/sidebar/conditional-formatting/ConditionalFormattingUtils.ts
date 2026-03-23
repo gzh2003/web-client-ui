@@ -569,17 +569,17 @@ export function getTextForDateCondition(
 ): string {
   switch (condition) {
     case DateCondition.IS_EXACTLY:
-      return `${columnName} == convertDateTime("${value}")`;
+      return `${columnName} == '${value}'`;
     case DateCondition.IS_NOT_EXACTLY:
-      return `${columnName} != convertDateTime(\`${value}\`)`;
+      return `${columnName} != '${value}'`;
     case DateCondition.IS_BEFORE:
-      return `${columnName} < convertDateTime(\`${value}\`)`;
+      return `${columnName} < '${value}'`;
     case DateCondition.IS_BEFORE_OR_EQUAL:
-      return `${columnName} <=  convertDateTime("${value}")`;
+      return `${columnName} <=  '${value}'`;
     case DateCondition.IS_AFTER:
-      return `${columnName} > convertDateTime(\`${value}\`)`;
+      return `${columnName} > '${value}'`;
     case DateCondition.IS_AFTER_OR_EQUAL:
-      return `${columnName} >=  convertDateTime(\`${value}\`)`;
+      return `${columnName} >=  '${value}'`;
     case DateCondition.IS_NULL:
       return `${columnName} == null`;
     case DateCondition.IS_NOT_NULL:
@@ -742,6 +742,16 @@ export function isDateConditionValid(
         dh.i18n.TimeZone.getTimeZone(tzCode);
       } catch (e) {
         log.debug('Invalid timezone string', tzCode);
+        return false;
+      }
+
+      // The backend timestamp parsing does not support timezones that end with ST or DT (e.g. EST, EDT)
+      // Passing these to the backend will cause the table to fail.
+      if (
+        tzCode.toUpperCase().endsWith('ST') ||
+        tzCode.toUpperCase().endsWith('DT')
+      ) {
+        log.debug('Timezone ending with ST or DT not supported', tzCode);
         return false;
       }
 
