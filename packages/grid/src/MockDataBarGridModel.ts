@@ -147,11 +147,8 @@ class MockDataBarGridModel extends GridModel implements DataBarGridModel {
     let textColor: string;
     if (hasGradient) {
       textColor = value >= 0 ? color[color.length - 1] : color[0];
-    } else if (Array.isArray(color)) {
-      const [first] = color;
-      textColor = first;
     } else {
-      textColor = color;
+      textColor = Array.isArray(color) ? color[0] : color;
     }
 
     return {
