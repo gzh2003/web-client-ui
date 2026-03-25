@@ -143,11 +143,23 @@ class MockDataBarGridModel extends GridModel implements DataBarGridModel {
     const color = value >= 0 ? positiveColor : negativeColor;
     const markers = this.markers.get(column) ?? [];
 
+    const hasGradient = Array.isArray(color) && color.length > 1;
+    let textColor: string;
+    if (hasGradient) {
+      textColor = value >= 0 ? color[color.length - 1] : color[0];
+    } else if (Array.isArray(color)) {
+      const [first] = color;
+      textColor = first;
+    } else {
+      textColor = color;
+    }
+
     return {
       columnMin,
       columnMax,
       axis,
       color,
+      textColor,
       valuePlacement,
       opacity,
       markers,

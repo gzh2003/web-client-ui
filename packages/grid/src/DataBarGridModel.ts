@@ -35,7 +35,7 @@ export interface DataBarOptions {
   columnMax: number;
   axis: AxisOption;
   color: GridColor | GridColor[];
-  textColor?: GridColor;
+  textColor: GridColor;
   valuePlacement: ValuePlacementOption;
   opacity: number;
   markers: Marker[];
