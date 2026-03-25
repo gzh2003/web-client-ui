@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.0](https://github.com/deephaven/web-client-ui/compare/v1.16.1...v1.17.0) (2026-03-25)
+
+### Features
+
+- DH-22048: Add optional button to dismiss the ErrorView component ([#2638](https://github.com/deephaven/web-client-ui/issues/2638)) ([7aa07c1](https://github.com/deephaven/web-client-ui/commit/7aa07c1d278c10e9c620c2951079a9ad5a3e109c))
+- **plugin:** add MultiPlugin type for registering multiple plugins from one module ([#2641](https://github.com/deephaven/web-client-ui/issues/2641)) ([56f8f62](https://github.com/deephaven/web-client-ui/commit/56f8f62b8a145d32fd3301de413c01a4abaa96f0))
+
+### Bug Fixes
+
+- DH-21869: Fix Conditional Formatting on Timestamp ([#2635](https://github.com/deephaven/web-client-ui/issues/2635)) ([0df7f10](https://github.com/deephaven/web-client-ui/commit/0df7f1040e23c44501b6ac09df73c702190dee88))
+- DH-22062: stop loading when input filter change has no effect on grid filters ([#2639](https://github.com/deephaven/web-client-ui/issues/2639)) ([6775c43](https://github.com/deephaven/web-client-ui/commit/6775c433d57537562746847ecce9d26a2781cfc3))
+
 ## [1.16.1](https://github.com/deephaven/web-client-ui/compare/v1.16.0...v1.16.1) (2026-03-19)
 
 ### Features

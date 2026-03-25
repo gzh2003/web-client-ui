@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.0](https://github.com/deephaven/web-client-ui/compare/v1.16.1...v1.17.0) (2026-03-25)
+
+### Features
+
+- **plugin:** add MultiPlugin type for registering multiple plugins from one module ([#2641](https://github.com/deephaven/web-client-ui/issues/2641)) ([56f8f62](https://github.com/deephaven/web-client-ui/commit/56f8f62b8a145d32fd3301de413c01a4abaa96f0))
+
 ## [1.16.1](https://github.com/deephaven/web-client-ui/compare/v1.16.0...v1.16.1) (2026-03-19)
 
 **Note:** Version bump only for package @deephaven/app-utils

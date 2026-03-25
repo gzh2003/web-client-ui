@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.0](https://github.com/deephaven/web-client-ui/compare/v1.16.1...v1.17.0) (2026-03-25)
+
+### Features
+
+- DH-22048: Add optional button to dismiss the ErrorView component ([#2638](https://github.com/deephaven/web-client-ui/issues/2638)) ([7aa07c1](https://github.com/deephaven/web-client-ui/commit/7aa07c1d278c10e9c620c2951079a9ad5a3e109c))
+
 ## [1.16.0](https://github.com/deephaven/web-client-ui/compare/v1.15.1...v1.16.0) (2026-03-18)
 
 ### Bug Fixes

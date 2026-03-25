@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.0](https://github.com/deephaven/web-client-ui/compare/v1.16.1...v1.17.0) (2026-03-25)
+
+### Bug Fixes
+
+- DH-21869: Fix Conditional Formatting on Timestamp ([#2635](https://github.com/deephaven/web-client-ui/issues/2635)) ([0df7f10](https://github.com/deephaven/web-client-ui/commit/0df7f1040e23c44501b6ac09df73c702190dee88))
+- DH-22062: stop loading when input filter change has no effect on grid filters ([#2639](https://github.com/deephaven/web-client-ui/issues/2639)) ([6775c43](https://github.com/deephaven/web-client-ui/commit/6775c433d57537562746847ecce9d26a2781cfc3))
+
 ## [1.16.0](https://github.com/deephaven/web-client-ui/compare/v1.15.1...v1.16.0) (2026-03-18)
 
 ### Bug Fixes
