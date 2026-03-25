@@ -121,6 +121,7 @@ class DataBarCellRenderer extends CellRenderer {
       columnMax,
       axis,
       color: dataBarColor,
+      textColor,
       valuePlacement,
       opacity,
       markers,
@@ -147,11 +148,10 @@ class DataBarCellRenderer extends CellRenderer {
     context.save();
     context.textAlign = textAlign;
 
-    // Use explicit format color if set.
+    // Use explicit text color if set.
     // Otherwise, fall back to the databar color for text.
-    const formatColor = model.formatColorForCell(modelColumn, modelRow);
-    if (formatColor != null) {
-      context.fillStyle = formatColor;
+    if (textColor != null) {
+      context.fillStyle = textColor;
     } else if (hasGradient) {
       const color =
         value >= 0 ? dataBarColor[dataBarColor.length - 1] : dataBarColor[0];
