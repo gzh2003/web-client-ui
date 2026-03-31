@@ -34,7 +34,10 @@ export interface DataBarOptions {
   columnMin: number;
   columnMax: number;
   axis: AxisOption;
+  /** The color of the databar. An array of colors produces a gradient. */
   color: GridColor | GridColor[];
+  /** The text color of the cell. */
+  textColor: GridColor;
   valuePlacement: ValuePlacementOption;
   opacity: number;
   markers: Marker[];
