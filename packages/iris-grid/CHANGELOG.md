@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.1](https://github.com/deephaven/web-client-ui/compare/v1.17.0...v1.17.1) (2026-04-01)
+
+### Bug Fixes
+
+- DH-20036: Skip totalsConfig updates during model transitions to prevent stale column errors ([#2645](https://github.com/deephaven/web-client-ui/issues/2645)) ([68e2734](https://github.com/deephaven/web-client-ui/commit/68e2734fe3339e159f8976cc5bd25819b863d8b6))
+- DH-21696: Fixed broken frozen columns ([#2649](https://github.com/deephaven/web-client-ui/issues/2649)) ([b6edd2d](https://github.com/deephaven/web-client-ui/commit/b6edd2df3590ee10c0368e8ef77a99fb82d915cc)), closes [/github.com/deephaven/web-client-ui/pull/2527/changes#diff-ba5d5bc0271a84729ec1bd28c11b7e1f05b3e71e4015c0bea863b4bf52b85bd8R544](https://github.com/deephaven//github.com/deephaven/web-client-ui/pull/2527/changes/issues/diff-ba5d5bc0271a84729ec1bd28c11b7e1f05b3e71e4015c0bea863b4bf52b85bd8R544)
+
 ## [1.17.0](https://github.com/deephaven/web-client-ui/compare/v1.16.1...v1.17.0) (2026-03-25)
 
 ### Bug Fixes

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.1](https://github.com/deephaven/web-client-ui/compare/v1.17.0...v1.17.1) (2026-04-01)
+
+### Bug Fixes
+
+- DH-21616: Databar overrides text color when using format prop ([#2640](https://github.com/deephaven/web-client-ui/issues/2640)) ([f5425e9](https://github.com/deephaven/web-client-ui/commit/f5425e97d359a2bd9fc13bf18d822898c8364a39))
+- DH-22093: Fix web UI freezing bug from grid-block-events ([#2646](https://github.com/deephaven/web-client-ui/issues/2646)) ([c1ba8d9](https://github.com/deephaven/web-client-ui/commit/c1ba8d936b8d96fb4ca52a262421e09076a3c2fd))
+
 ## [1.15.1](https://github.com/deephaven/web-client-ui/compare/v1.15.0...v1.15.1) (2026-03-05)
 
 ### Bug Fixes

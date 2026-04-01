@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.1](https://github.com/deephaven/web-client-ui/compare/v1.17.0...v1.17.1) (2026-04-01)
+
+### Bug Fixes
+
+- Fixes for nested dashboards/deephaven.ui ([#2648](https://github.com/deephaven/web-client-ui/issues/2648)) ([282c234](https://github.com/deephaven/web-client-ui/commit/282c234d8f1e4a66edd1dad59534b342b9a061e7))
+
 ## [1.17.0](https://github.com/deephaven/web-client-ui/compare/v1.16.1...v1.17.0) (2026-03-25)
 
 ### Features

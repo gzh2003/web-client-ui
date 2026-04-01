@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.1](https://github.com/deephaven/web-client-ui/compare/v1.17.0...v1.17.1) (2026-04-01)
+
+### Bug Fixes
+
+- DH-20036: Skip totalsConfig updates during model transitions to prevent stale column errors ([#2645](https://github.com/deephaven/web-client-ui/issues/2645)) ([68e2734](https://github.com/deephaven/web-client-ui/commit/68e2734fe3339e159f8976cc5bd25819b863d8b6))
+- DH-21616: Databar overrides text color when using format prop ([#2640](https://github.com/deephaven/web-client-ui/issues/2640)) ([f5425e9](https://github.com/deephaven/web-client-ui/commit/f5425e97d359a2bd9fc13bf18d822898c8364a39))
+- DH-21696: Fixed broken frozen columns ([#2649](https://github.com/deephaven/web-client-ui/issues/2649)) ([b6edd2d](https://github.com/deephaven/web-client-ui/commit/b6edd2df3590ee10c0368e8ef77a99fb82d915cc)), closes [/github.com/deephaven/web-client-ui/pull/2527/changes#diff-ba5d5bc0271a84729ec1bd28c11b7e1f05b3e71e4015c0bea863b4bf52b85bd8R544](https://github.com/deephaven//github.com/deephaven/web-client-ui/pull/2527/changes/issues/diff-ba5d5bc0271a84729ec1bd28c11b7e1f05b3e71e4015c0bea863b4bf52b85bd8R544)
+- DH-22093: Fix web UI freezing bug from grid-block-events ([#2646](https://github.com/deephaven/web-client-ui/issues/2646)) ([c1ba8d9](https://github.com/deephaven/web-client-ui/commit/c1ba8d936b8d96fb4ca52a262421e09076a3c2fd))
+- Fixes for nested dashboards/deephaven.ui ([#2648](https://github.com/deephaven/web-client-ui/issues/2648)) ([282c234](https://github.com/deephaven/web-client-ui/commit/282c234d8f1e4a66edd1dad59534b342b9a061e7))
+- **golden-layout:** exclude test files from build output ([#2642](https://github.com/deephaven/web-client-ui/issues/2642)) ([dc84a67](https://github.com/deephaven/web-client-ui/commit/dc84a671f588abe4869b30149f48d50bb3d98632))
+
 ## [1.17.0](https://github.com/deephaven/web-client-ui/compare/v1.16.1...v1.17.0) (2026-03-25)
 
 ### Features
