@@ -1,4 +1,5 @@
 import type { BaseThemeType } from '@deephaven/components';
+import type { WidgetDescriptor } from '@deephaven/dashboard';
 import {
   type EventEmitter,
   type ItemContainer,
@@ -124,6 +125,11 @@ export interface WidgetComponentProps<T = unknown> {
    * @returns A promise that resolves to the widget data.
    */
   fetch: () => Promise<T>;
+
+  /**
+   * Descriptor of the widget, which may contain information such as the type and name of the widget.
+   */
+  metadata?: WidgetDescriptor;
   /**
    * A unique identifier for the widget.
    * dh.ui uses this to identify widgets within a dashboard or panel.
