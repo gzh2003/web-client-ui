@@ -45,6 +45,13 @@ export function parseValueFromNodes(nodes: NodeListOf<ChildNode>): string[][] {
   return result;
 }
 
+export function parseValueFromText(text: string): string[][] {
+  return text
+    .trim()
+    .split('\n')
+    .map(row => row.split('\t'));
+}
+
 export function parseValueFromElement(
   element: HTMLElement
 ): string | string[][] | null {
@@ -104,21 +111,35 @@ class PasteKeyHandler extends KeyHandler {
             'clip-path: "inset(50%)"; height: 1px; width: 1px; margin: -1px; overflow: hidden; padding 0; position: absolute;'
           );
 
-          const listener = (): void => {
-            dummyInput.removeEventListener('input', listener);
+          const cleanup = (): void => {
+            dummyInput.removeEventListener('paste', pasteListener);
+            dummyInput.removeEventListener('input', inputListener);
             dummyInput.remove();
-
             grid.focus();
-            const value = parseValueFromElement(dummyInput);
+          };
+
+          let plainText = '';
+
+          // Capture text/plain from the clipboard during the paste event.
+          // This is used as a fallback if HTML parsing fails, for cases like pasting from Excel
+          const pasteListener = (e: Event): void => {
+            const clipboardEvent = e as ClipboardEvent;
+            plainText =
+              clipboardEvent.clipboardData?.getData('text/plain') ?? '';
+          };
+
+          const inputListener = (): void => {
+            cleanup();
+            const value =
+              parseValueFromElement(dummyInput) ??
+              (plainText.length > 0 ? parseValueFromText(plainText) : null);
             if (value != null) {
               grid.pasteValue(value);
             }
           };
 
-          // Listen for the `input` event, when there's a change to the HTML
-          // We could also listen to the `paste` event to get the clipboard data, but that's just text data
-          // By listening to `input`, we can get a table that's already parsed in HTML, which is easier to consume
-          dummyInput.addEventListener('input', listener);
+          dummyInput.addEventListener('paste', pasteListener);
+          dummyInput.addEventListener('input', inputListener);
 
           // Focus the element so it receives the paste event
           dummyInput.focus();
