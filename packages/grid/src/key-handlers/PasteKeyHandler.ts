@@ -45,11 +45,15 @@ export function parseValueFromNodes(nodes: NodeListOf<ChildNode>): string[][] {
   return result;
 }
 
-export function parseValueFromText(text: string): string[][] {
-  return text
+export function parseValueFromText(text: string): string | string[][] {
+  const rows = text
     .trim()
     .split('\n')
     .map(row => row.split('\t'));
+  if (rows.length === 1 && rows[0].length === 1) {
+    return rows[0][0];
+  }
+  return rows;
 }
 
 export function parseValueFromElement(
@@ -131,8 +135,8 @@ class PasteKeyHandler extends KeyHandler {
           const inputListener = (): void => {
             cleanup();
             const value =
-              parseValueFromElement(dummyInput) ??
-              (plainText.length > 0 ? parseValueFromText(plainText) : null);
+              (plainText.length > 0 ? parseValueFromText(plainText) : null) ??
+              parseValueFromElement(dummyInput);
             if (value != null) {
               grid.pasteValue(value);
             }
