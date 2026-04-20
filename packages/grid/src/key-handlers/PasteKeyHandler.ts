@@ -125,7 +125,7 @@ class PasteKeyHandler extends KeyHandler {
           let plainText = '';
 
           // Capture text/plain from the clipboard during the paste event.
-          // This is used as a fallback if HTML parsing fails, for cases like pasting from Excel
+          // HTML element parsing is used as a fallback if text/plain is unavailable.
           const pasteListener = (e: Event): void => {
             const clipboardEvent = e as ClipboardEvent;
             plainText =
